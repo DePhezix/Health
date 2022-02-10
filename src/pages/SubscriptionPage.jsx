@@ -1,29 +1,54 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import SubscriptionHeader from '../components/headers/SubscriptionHeader';
-import { Link } from 'react-router-dom';
 
 function SubscriptionPage() {
+    const [premiumPopUp, setPremiumPopUp] = useState(false);
+    const showPopUp = () => setPremiumPopUp(true);
+    const hidePopUp = () => setPremiumPopUp(false)
   return (
-      <Container>
-          <SubscriptionHeader />
-          <Holder>
-            <Wrap>
-                <div>
-                    <ImageHolderBasic />
-                    <BasicText src='/basicText.jpeg' />
-                    <p>You Are Currently Subscribed To This Plan</p>
-                </div>
-            </Wrap>
-            <Wrap>
-                <div>
-                    <ImageHolderPremium />
-                    <PremiumText src='/premiumText.jpg' />
-                    <Link to='/premium'>Upgrade To Premium</Link>
-                </div>
-            </Wrap>
-          </Holder>
-      </Container>
+      <>
+        <Container>
+            <SubscriptionHeader />
+            <Holder>
+                    <BasicHolder>
+                        <Wrap>
+                            <div>
+                                <ImageHolderBasic />
+                                <BasicText src='/basicText.jpeg' />
+                                <p>You Are Currently Subscribed To This Plan</p>
+                            </div>
+                        </Wrap>
+                        <Perks>
+                            <h5>Perks Of This Subscription</h5>
+                            <span>Access To Limited Information on how to improve your health for free</span>
+                        </Perks>
+                    </BasicHolder>
+                <PremiumHolder>
+                    <WrapPremium>
+                        <div>
+                            <ImageHolderPremium />
+                            <PremiumText src='/premiumText.jpg' />
+                            <a onClick={showPopUp} >Upgrade To Premium</a>
+                        </div>
+                    </WrapPremium>
+                    <PerksPremium>
+                        <h5>Perks Of This Subscription</h5>
+                        <span>Access To All Features Currently Available</span>
+                    </PerksPremium>
+                </PremiumHolder>
+            </Holder>
+        </Container>
+        {premiumPopUp ? 
+        <PremiumPopUp>
+            <PopUp>
+                <IconHolder>
+                    <ion-icon name="close-outline" onClick={hidePopUp}></ion-icon>
+                </IconHolder>
+
+            </PopUp>
+        </PremiumPopUp> : null}
+    </>
   )
 }
 
@@ -54,6 +79,7 @@ const Wrap = styled.div `
     justify-content: center;
     border-radius: 1em;
     text-align: center;
+    position: relative;
 
     div {
         position: relative;
@@ -78,6 +104,7 @@ const Wrap = styled.div `
         padding: 5px 10px;
         border-radius: 1em;
         right: 5%;
+        cursor: pointer;
 
         &:hover {
             background: blue;
@@ -85,11 +112,92 @@ const Wrap = styled.div `
     }
 `
 
+const Perks = styled.div `
+ width: 150px;
+ height: 240px;
+ position: absolute;
+ background: silver;
+ color: white;
+ padding: 3px 10px;
+ display: flex;
+ flex-direction: column;
+ border-radius: 1em;
+ top: 4%;
+ z-index: -1;
+ text-align: center;
+ transition: 1s ease-in-out;
+
+ @media (max-width: 800px) {
+     right: 6%;
+     top: 46%; 
+     width: 230px;
+     height: 80px;
+     display: flex;
+ }
+
+ @media (max-width: 550px) {
+     right: 6%;
+     top: 99%; 
+     width: 230px;
+     height: 60px;
+     display: flex;
+ }
+
+ h5 {
+     margin-bottom: 10px;
+ }
+
+ span {
+     font-size: 12px;
+ }
+`
+
+const PerksPremium = styled(Perks) ``
+
 const PremiumText = styled.img `
     position: absolute;
     left: 18%;
     top: 75%;
     width: 150px;
+`
+
+const PremiumHolder = styled.div `
+    position: relative;
+    &:hover {
+        ${PerksPremium} {
+            transform: translateX(270px);
+
+            @media (max-width: 800px) {
+                transform: translateX(0px);
+            }
+        }
+    }
+`
+
+const BasicHolder = styled.div `
+    position: relative;
+    height: 600px;
+
+    @media (max-width: 600px) {
+        height: 280px;
+    }
+
+    &:hover {
+        ${Perks} {
+                transform: translateX(270px);
+
+                @media (max-width: 800px) {
+                    transform: translateX(0px);
+                }
+            }
+        }
+    }
+`
+
+const WrapPremium = styled(Wrap) `
+    @media(max-width: 550px) {
+        margin-top: 70px;
+    }
 `
 
 const BasicText = styled.img `
@@ -112,5 +220,44 @@ const ImageHolderPremium = styled.div `
 `
 
 const ImageHolderBasic = styled(ImageHolderPremium) `
-    background-image: url('https://media.istockphoto.com/vectors/bokeh-background-vector-id1073136398?k=20&m=1073136398&s=612x612&w=0&h=NNSuNGqW2Fwr69QACsPmFWT7h8mHr0TJ9ILtvrS5Y_4=')
+    background-image: url('https://media.istockphoto.com/vectors/bokeh-background-vector-id1073136398?k=20&m=1073136398&s=612x612&w=0&h=NNSuNGqW2Fwr69QACsPmFWT7h8mHr0TJ9ILtvrS5Y_4=');
+`
+
+const PremiumPopUp = styled.div `
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100vw;
+    height: 1000px;
+    z-index: 1000;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+`
+
+const PopUp = styled.div `
+    background: white;
+    width: 400px;
+    height: 450px;
+    position: fixed;
+    border-radius: 1em;
+    top: 20%;
+`
+
+const IconHolder = styled.div `
+    width: 100%;
+    height: 100%;
+    font-size: 1.75em;
+    color: #222327;
+    display: flex;
+    justify-content: flex-end;
+
+    ion-icon {
+        cursor: pointer;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
 `
