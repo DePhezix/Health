@@ -1,28 +1,27 @@
-import styled from "styled-components";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-function HomeHeader() {
+function SubscriptionHeader() {
     return (
         <Navigation>
 <div style={{marginLeft: '10px'}}>
   <ul>
-    <List className='active'>
-      <a>
+    <List>
+      <Link to='/premium'>
         <Icon>
           <ion-icon name="home-outline"></ion-icon>
         </Icon>
         <Text>
           Home
         </Text>
-        <Indicator />
-      </a>
+      </Link>
     </List>
   </ul>
 </div>
 <DivSecond>
   <ul>
     <List>
-      <Link to='/credit'>
+      <Link to='/premium/credit'>
         <Icon>
           <ion-icon name="chatbox-outline"></ion-icon>
         </Icon>
@@ -33,15 +32,16 @@ function HomeHeader() {
     </List>
   </ul>
   <ul>
-    <List>
-      <Link to='/subscription'>
+    <List className='active'>
+      <a>
         <Icon>
           <ion-icon name="cash-outline"></ion-icon>
         </Icon>
         <Text>
           Subscription
         </Text>
-      </Link>
+        <Indicator />
+      </a>
     </List>
   </ul>
 </DivSecond>
@@ -49,19 +49,19 @@ function HomeHeader() {
     )
 }
 
-export default HomeHeader;
+export default SubscriptionHeader;
 
 
 const Navigation = styled.div `
   width: calc(100vw - 4em);
+  height: 70px;
   background: white;
   border-radius: 1em;
-  height: 70px;
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  top: 50px;
+  margin-top: 50px;
 
   @media (max-width: 768px) {
     justify-content: center;
@@ -169,7 +169,7 @@ const Indicator = styled.div `
   top: -10%;
   left: -25%;
   height: 80px;
-  width: 110px;
+  width: 120px;
   z-index: -1;
   background: #29fd53;
   border-radius: 200px 0px 200px 0px;
@@ -179,7 +179,7 @@ const Indicator = styled.div `
   border: 6px solid #222327;
 
   @media (max-width: 768px) {
-    width: 100px;
-    left: -40%;
+    width: 120px;
+    left: -50%;
   }
 `

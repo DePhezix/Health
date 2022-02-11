@@ -21,14 +21,14 @@ function SubscriptionHeader() {
 <DivSecond>
   <ul>
     <List>
-      <a>
+      <Link to='/credit'>
         <Icon>
           <ion-icon name="chatbox-outline"></ion-icon>
         </Icon>
         <Text>
           Credit
         </Text>
-      </a>
+      </Link>
     </List>
   </ul>
   <ul>

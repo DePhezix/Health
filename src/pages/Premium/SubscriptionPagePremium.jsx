@@ -1,23 +1,23 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import SubscriptionHeader from '../components/headers/SubscriptionHeader';
+import SubscriptionHeaderPremium from '../../components/headers/SubscriptionHeaderPremium';
 import {Link} from 'react-router-dom'
 
-function SubscriptionPage() {
+function SubscriptionPagePremium() {
     const [premiumPopUp, setPremiumPopUp] = useState(false);
     const showPopUp = () => setPremiumPopUp(true);
     const hidePopUp = () => setPremiumPopUp(false);  
   return (
       <>
         <Container>
-            <SubscriptionHeader />
+            <SubscriptionHeaderPremium />
             <Holder>
                     <BasicHolder>
                         <Wrap>
                             <div>
                                 <ImageHolderBasic />
                                 <BasicText src='/basicText.jpeg' />
-                                <p>You Are Currently Subscribed To This Plan</p>
+                                <a onClick={showPopUp}> Downgrade To Basic </a>
                             </div>
                         </Wrap>
                         <Perks>
@@ -30,7 +30,7 @@ function SubscriptionPage() {
                         <div>
                             <ImageHolderPremium />
                             <PremiumText src='/premiumText.jpg' />
-                            <a onClick={showPopUp} >Upgrade To Premium</a>
+                            <p>You Are Currently Subscribed To This Plan</p>
                         </div>
                     </WrapPremium>
                     <PerksPremium>
@@ -47,23 +47,12 @@ function SubscriptionPage() {
                     <ion-icon name="close-outline" onClick={hidePopUp}></ion-icon>
                 </IconHolder>
                 <Info>
-                    <CreditCardNumber>
-                        <h4> Credit Card Number </h4>
-                        <input maxLength='16' />
-                    </CreditCardNumber>
-                    <ExpirationDate>
-                        <h4> Expiration Date </h4>
-                        <div>
-                            <input maxLength='2'  placeholder='MM' />
-                            <p> / </p>
-                            <input maxLength='2' placeholder='YY' />
-                        </div>
-                    </ExpirationDate>
-                    <CVC>
-                        <h4> CVC </h4>
-                        <input maxLength='3' />
-                    </CVC>
-                    <PremiumUpgrade to='/premium'>Upgrade To Premium ($4.99)</PremiumUpgrade>
+                    <div>
+                        <h3>
+                            Are You Sure You Want To Downgrade To Basic?
+                        </h3>
+                    </div>
+                    <BasicDowngrade to='/'>Downgrade To Basic</BasicDowngrade>
                 </Info>
             </PopUp>
         </PremiumPopUp> : null}
@@ -71,7 +60,7 @@ function SubscriptionPage() {
   )
 }
 
-export default SubscriptionPage;
+export default SubscriptionPagePremium;
 
 const Container = styled.div `
     width: 100vw;
@@ -287,43 +276,7 @@ const IconHolder = styled.div `
     }
 `
 
-const CreditCardNumber = styled.div `
-    color: black;
-    margin-bottom: 10px;
-    font-size: 0.8em;
 
-    h4 {
-        margin-bottom: 5px;
-    }
-    input {
-        width: 380px;
-        font-size: 1.3em;
-    }
-`
-
-const ExpirationDate = styled(CreditCardNumber) `
-    div {
-        display: flex;
-
-        p {
-            font-size: 1.7em;
-            margin-left: 6px;
-            margin-right: 6px;
-        }
-    }
-    input {
-        width: 180px;
-    }
-`
-
-const CVC = styled(CreditCardNumber) `
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    input {
-        width: 100px;
-    }
-`
 
 const Info = styled.div `
     height: 100%;
@@ -332,9 +285,20 @@ const Info = styled.div `
     justify-content: flex-start;
     margin-top: 50px;
     margin-left: 10px;
+
+    div {
+        display: flex;
+        justify-content: center;
+    }
+
+    h3 {
+        color: red;
+        text-align: center;
+        width: 350px;
+    }
 `
 
-const PremiumUpgrade = styled(Link) `
+const BasicDowngrade = styled(Link) `
     text-decoration: none;
     color: white;
     background: #064cff;
@@ -343,7 +307,7 @@ const PremiumUpgrade = styled(Link) `
     border-radius: 1em;
     right: 5%;
     cursor: pointer;
-    margin-top: 30px;
+    margin-top: 130px;
     margin-left: 57px;
     text-align: center;
 

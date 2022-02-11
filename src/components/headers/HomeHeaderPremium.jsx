@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-function HomeHeader() {
+function HomeHeaderPremium() {
     return (
         <Navigation>
 <div style={{marginLeft: '10px'}}>
@@ -22,7 +22,7 @@ function HomeHeader() {
 <DivSecond>
   <ul>
     <List>
-      <Link to='/credit'>
+      <Link to='/premium/credit'>
         <Icon>
           <ion-icon name="chatbox-outline"></ion-icon>
         </Icon>
@@ -34,7 +34,7 @@ function HomeHeader() {
   </ul>
   <ul>
     <List>
-      <Link to='/subscription'>
+      <Link to='/premium/subscription'>
         <Icon>
           <ion-icon name="cash-outline"></ion-icon>
         </Icon>
@@ -49,7 +49,7 @@ function HomeHeader() {
     )
 }
 
-export default HomeHeader;
+export default HomeHeaderPremium;
 
 
 const Navigation = styled.div `

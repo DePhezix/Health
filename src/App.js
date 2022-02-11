@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router';
 import './App.css';
 import HomePage from './pages/HomePage';
 import SubscriptionPage from './pages/SubscriptionPage';
+import Premium from './pages/Premium/Premium';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} /> 
         <Route path='/subscription' element={<SubscriptionPage />} />
+        <Route path='/premium/*' element={<Premium />} />
       </Routes>
     </div>
   );
