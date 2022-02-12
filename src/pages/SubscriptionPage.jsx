@@ -1,12 +1,22 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import SubscriptionHeader from '../components/headers/SubscriptionHeader';
-import {Link} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 function SubscriptionPage() {
     const [premiumPopUp, setPremiumPopUp] = useState(false);
+    const [month, setMonth] = useState('');
+    const [cvc, setCVC] = useState('');
+    const [year, setYear] = useState('');
+    const [cardNumber, setCardNumber] = useState('');
+    let disable = true
     const showPopUp = () => setPremiumPopUp(true);
-    const hidePopUp = () => setPremiumPopUp(false);  
+    const hidePopUp = () => {return (setPremiumPopUp(false), setMonth(''), setCVC(''), setYear(''), setCardNumber('') )};  
+    const navigateTo = useNavigate();
+
+    if (month !== '' && cvc !== '' && year !== '' && cardNumber !== '' ) {
+        disable = false
+    }
   return (
       <>
         <Container>
@@ -49,21 +59,21 @@ function SubscriptionPage() {
                 <Info>
                     <CreditCardNumber>
                         <h4> Credit Card Number </h4>
-                        <input maxLength='16' />
+                        <input maxLength='16' onChange={num => setCardNumber(num)} />
                     </CreditCardNumber>
                     <ExpirationDate>
                         <h4> Expiration Date </h4>
                         <div>
-                            <input maxLength='2'  placeholder='MM' />
+                            <input maxLength='2'  placeholder='MM' onChange={num => setMonth(num)} />
                             <p> / </p>
-                            <input maxLength='2' placeholder='YY' />
+                            <input maxLength='2' placeholder='YY' onChange={num => setYear(num)} />
                         </div>
                     </ExpirationDate>
                     <CVC>
                         <h4> CVC </h4>
-                        <input maxLength='3' />
+                        <input maxLength='3' onChange={num => setCVC(num)} />
                     </CVC>
-                    <PremiumUpgrade to='/premium'>Upgrade To Premium ($4.99)</PremiumUpgrade>
+                    <PremiumUpgrade to='/premium' disabled={disable} onClick={() => navigateTo('/premium')} >Upgrade To Premium ($4.99)</PremiumUpgrade>
                 </Info>
             </PopUp>
         </PremiumPopUp> : null}
@@ -334,18 +344,30 @@ const Info = styled.div `
     margin-left: 10px;
 `
 
-const PremiumUpgrade = styled(Link) `
+const PremiumUpgrade = styled.button `
     text-decoration: none;
     color: white;
     background: #064cff;
     width: 250px;
     padding: 5px 10px;
+    height: 36px;
+    font-size: 1em;
     border-radius: 1em;
     right: 5%;
     cursor: pointer;
     margin-top: 30px;
     margin-left: 57px;
     text-align: center;
+    border: none;
+
+    &:disabled {
+        cursor: not-allowed;
+        background: #3a3939;
+
+        &:hover {
+            background: black;
+        }
+    }
 
     &:hover {
         background: blue;

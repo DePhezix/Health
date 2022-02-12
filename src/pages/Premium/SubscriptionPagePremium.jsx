@@ -285,6 +285,7 @@ const Info = styled.div `
     justify-content: flex-start;
     margin-top: 50px;
     margin-left: 10px;
+    position: relative;
 
     div {
         display: flex;
@@ -305,11 +306,18 @@ const BasicDowngrade = styled(Link) `
     width: 250px;
     padding: 5px 10px;
     border-radius: 1em;
-    right: 5%;
+    position: absolute;
+    top: 15%;
+    left: 3%;
     cursor: pointer;
     margin-top: 130px;
     margin-left: 57px;
     text-align: center;
+    font-size: 1em;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
         background: blue;
